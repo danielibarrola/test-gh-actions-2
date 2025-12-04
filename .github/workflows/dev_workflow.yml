@@ -2,7 +2,7 @@ name: dev_workflow.yml
 on:
   push:
     branches:
-      - dev
+      - develop
   workflow_dispatch:
     inputs:
       json_vars:
