@@ -1,0 +1,20 @@
+name: Culprit Finder Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      workflow-to-debug:
+        description: "Which workflow should be run?"
+        type: string
+        default: ""
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+
+
+jobs:
+  bisect-test-workflow:
+    if: ${{ inputs.workflow-to-debug == 'dev_workflow.yml' }}
+    uses: ./.github/workflows/dev_workflow.yml
+    name: Bisect Test Workflow
