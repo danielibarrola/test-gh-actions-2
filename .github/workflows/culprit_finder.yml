@@ -1,6 +1,10 @@
 name: Culprit Finder Workflow
 
 on:
+  push:
+    branches:
+      - develop
+
   workflow_dispatch:
     inputs:
       workflow-to-debug:
