@@ -1,0 +1,31 @@
+name: dev_workflow.yml
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+    inputs:
+      json_vars:
+        type: string
+        description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
+        required: false
+        default: '{}'
+  workflow_call:
+    inputs:
+      json_vars:
+        type: string
+        description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
+        required: false
+        default: '{}'
+
+jobs:
+  test-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Test
+        run: |
+          echo "Current SHA: ${{ github.sha }}"
+          echo "Success!"
+          exit 0
