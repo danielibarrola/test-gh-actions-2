@@ -15,5 +15,5 @@ jobs:
       - name: Test
         run: |
           echo "Current SHA: ${{ github.sha }}"
-          echo "Success!"
-          exit 0
+          echo "Failure!"
+          exit 1
