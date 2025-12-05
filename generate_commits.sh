@@ -18,7 +18,7 @@ for ((i=1; i<=COUNT; i++)); do
 
     # 2. Git operations
     git add "$FILE"
-    git commit -m "Automated update #$i - $TIMESTAMP"
+    git commit -m "Automated update #$i - $TIMESTAMP to test culprit finder"
 
     echo "[$i/$COUNT] Pushing to remote..."
     git push
