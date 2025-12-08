@@ -15,5 +15,14 @@ jobs:
       - name: Test
         run: |
           echo "Current SHA: ${{ github.sha }}"
-          echo "Failure!"
-          exit 1
+          echo "Success!"
+          exit 0
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: |
+          echo "Current SHA: ${{ github.sha }}"
+          echo "Build Job"
+          echo "Success!"
+          exit 0
