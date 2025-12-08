@@ -15,8 +15,8 @@ jobs:
       - name: Test
         run: |
           echo "Current SHA: ${{ github.sha }}"
-          echo "Success!"
-          exit 0
+          echo "Fail!"
+          exit 1
   build:
     runs-on: ubuntu-latest
     steps:
