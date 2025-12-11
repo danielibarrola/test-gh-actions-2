@@ -3,7 +3,8 @@
 # Defaults
 COUNT=${1:-5}          # Number of commits (default: 5)
 DELAY=${2:-10}         # Delay in seconds (default: 10)
-FILE=${3:-"activity_log.txt"} # File to update (default: activity_log.txt)
+PUSH=${3:-true}        # Push to remote (default: true)
+FILE=${4:-"activity_log.txt"} # File to update (default: activity_log.txt)
 
 echo "Starting sequence: $COUNT commits, waiting ${DELAY}s between them."
 
@@ -20,14 +21,17 @@ for ((i=1; i<=COUNT; i++)); do
     git add "$FILE"
     git commit -m "Automated update #$i - $TIMESTAMP to test culprit finder"
 
-    echo "[$i/$COUNT] Pushing to remote..."
-    git push
+    if [ "$PUSH" = "true" ]; then
+        echo "[$i/$COUNT] Pushing to remote..."
+        git push
 
-    # 3. Wait (if not the last iteration)
-    if [ "$i" -lt "$COUNT" ]; then
-        echo "Waiting $DELAY seconds..."
-        sleep "$DELAY"
+      # 3. Wait (if not the last iteration)
+      if [ "$i" -lt "$COUNT" ]; then
+          echo "Waiting $DELAY seconds..."
+          sleep "$DELAY"
+      fi
     fi
+
 done
 
 echo ""
