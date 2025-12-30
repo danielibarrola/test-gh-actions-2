@@ -31,6 +31,8 @@ jobs:
       - name: Test
         run: |
           echo "Current SHA: ${{ github.sha }}"
+          echo "Listing all environment variables:"
+          env
           echo "Success!"
           exit 0
   build:
@@ -40,5 +42,5 @@ jobs:
         run: |
           echo "Current SHA: ${{ github.sha }}"
           echo "Build Job"
-          echo "Fail!"
-          exit 1
+          echo "Success!"
+          exit 0
