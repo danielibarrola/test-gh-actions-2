@@ -13,6 +13,11 @@ on:
         description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
         required: false
         default: '{}'
+      cross_repo_commit_sha:
+        type: string
+        description: 'The SHA of the commit to test against.'
+        required: false
+        default: 'main'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
@@ -25,3 +30,11 @@ jobs:
     name: Bisect Test Workflow
     with:
       json_vars: ${{ inputs.json_vars }}
+
+  bisect-python-tests:
+    if: ${{ inputs.workflow-to-debug == 'python_tests.yml' }}
+    uses: ./.github/workflows/python_tests.yml
+    name: Bisect Python Tests
+    with:
+      json_vars: ${{ inputs.json_vars }}
+      py_hello_world_sha: ${{ inputs.cross_repo_commit_sha }}

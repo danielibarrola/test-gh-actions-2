@@ -12,6 +12,11 @@ on:
         description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
         required: false
         default: '{}'
+      py_hello_world_sha:
+        type: string
+        description: 'The SHA of the py-hello-world package to test against.'
+        required: false
+        default: 'main'
   workflow_call:
     inputs:
       json_vars:
@@ -19,6 +24,11 @@ on:
         description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
         required: false
         default: '{}'
+    py_hello_world_sha:
+      type: string
+      description: 'The SHA of the py-hello-world package to test against.'
+      required: false
+      default: 'main'
 
 jobs:
   python-tests:
@@ -33,7 +43,7 @@ jobs:
       - name: Install specific package version
         run: |
           # Use the SHA passed in json_vars or default to main
-          TARGET_SHA=${{ env.PKG_SHA || 'main' }}
+          TARGET_SHA=${{ inputs.py_hello_world_sha || 'main' }}
           pip install "git+https://github.com/danielibarrola/python-hello-world.git@$TARGET_SHA"
       - name: Test
         run: python tests/test_hello_world.py
