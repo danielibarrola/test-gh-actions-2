@@ -8,6 +8,11 @@ on:
         type: string
         default: ""
         required: true
+      json_vars:
+        type: string
+        description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
+        required: false
+        default: '{}'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
@@ -18,3 +23,5 @@ jobs:
     if: ${{ inputs.workflow-to-debug == 'dev_workflow.yml' }}
     uses: ./.github/workflows/dev_workflow.yml
     name: Bisect Test Workflow
+    with:
+      json_vars: inputs.json_vars

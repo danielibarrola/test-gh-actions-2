@@ -4,7 +4,19 @@ on:
     branches:
       - develop
   workflow_dispatch:
+    inputs:
+      json_vars:
+        type: string
+        description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
+        required: false
+        default: '{}'
   workflow_call:
+    inputs:
+      json_vars:
+        type: string
+        description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
+        required: false
+        default: '{}'
 
 jobs:
   test-dev:
@@ -12,6 +24,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Parse and set dynamic env vars
+        run: |
+          echo "Setting environment variables from input..."
+          echo '${{ inputs.json_vars || '{}' }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
       - name: Test
         run: |
           echo "Current SHA: ${{ github.sha }}"
