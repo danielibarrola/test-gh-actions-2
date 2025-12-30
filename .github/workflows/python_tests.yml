@@ -24,11 +24,11 @@ on:
         description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
         required: false
         default: '{}'
-    py_hello_world_sha:
-      type: string
-      description: 'The SHA of the py-hello-world package to test against.'
-      required: false
-      default: 'main'
+      py_hello_world_sha:
+        type: string
+        description: 'The SHA of the py-hello-world package to test against.'
+        required: false
+        default: 'main'
 
 jobs:
   python-tests:
