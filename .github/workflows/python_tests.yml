@@ -36,14 +36,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Read default SHA from file
+        id: get_sha
+        run: |
+          cat py_hello_world.txt >> $GITHUB_ENV
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.13'
       - name: Install specific package version
         run: |
-          # Use the SHA passed in json_vars or default to main
-          TARGET_SHA=${{ inputs.py_hello_world_sha || 'main' }}
+          # Priority: 1. Input parameter, 2. File content, 3. 'main' default
+          TARGET_SHA="${{ inputs.py_hello_world_sha }}"
+          if [ -z "$TARGET_SHA" ] || [ "$TARGET_SHA" = "main" ]; then
+            TARGET_SHA=$PY_HELLO_WORLD_COMMIT
+          fi
+          
+          TARGET_SHA=${TARGET_SHA:-main}
+          
+          echo "Installing version: $TARGET_SHA"
           pip install "git+https://github.com/danielibarrola/python-hello-world.git@$TARGET_SHA"
       - name: Test
         run: python tests/test_hello_world.py
