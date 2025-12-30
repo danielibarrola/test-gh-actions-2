@@ -27,6 +27,7 @@ jobs:
       - name: Parse and set dynamic env vars
         run: |
           echo "Setting environment variables from input..."
+          echo ${{ inputs.json_vars }}
           echo '${{ inputs.json_vars || '{}' }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
       - name: Test
         run: |
