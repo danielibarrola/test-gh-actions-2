@@ -1,0 +1,40 @@
+name: Python Tests (Head)
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches: [ "**" ]
+  workflow_dispatch:
+    inputs:
+      json_vars:
+        type: string
+        description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
+        required: false
+        default: '{}'
+  workflow_call:
+    inputs:
+      json_vars:
+        type: string
+        description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
+        required: false
+        default: '{}'
+
+jobs:
+  python-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Read default SHA from file
+        id: get_sha
+        run: |
+          cat py_hello_world.txt >> $GITHUB_ENV
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+      - name: Install Python Hello World
+        run: pip install "git+https://github.com/danielibarrola/python-hello-world.git"
+      - name: Test
+        run: python tests/test_hello_world.py
