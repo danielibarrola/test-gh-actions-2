@@ -1,4 +1,4 @@
-name: Python Tests (Head)
+name: Python Tests
 on:
   push:
     branches:
@@ -12,6 +12,11 @@ on:
         description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
         required: false
         default: '{}'
+      py_hello_world_sha:
+        type: string
+        description: 'The SHA of the py-hello-world package to test against.'
+        required: false
+        default: 'main'
   workflow_call:
     inputs:
       json_vars:
@@ -19,6 +24,11 @@ on:
         description: 'A JSON string of key-value pairs that will be passed as environment variables to the workflow. (e.g., {"NAME": "test", "VERSION": "1.2.3"})'
         required: false
         default: '{}'
+      py_hello_world_sha:
+        type: string
+        description: 'The SHA of the py-hello-world package to test against.'
+        required: false
+        default: 'main'
 
 jobs:
   python-tests:
@@ -26,15 +36,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Read default SHA from file
-        id: get_sha
-        run: |
-          cat py_hello_world.txt >> $GITHUB_ENV
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.13'
-      - name: Install Python Hello World
-        run: pip install "git+https://github.com/danielibarrola/python-hello-world.git"
+      - name: Install specific package version
+        run: |
+          # Priority: 1. Input parameter, 2. 'main' default
+          TARGET_SHA="${{ inputs.py_hello_world_sha }}"
+          TARGET_SHA=${TARGET_SHA:-main}
+          
+          echo "Installing version: $TARGET_SHA"
+          pip install "git+https://github.com/danielibarrola/python-hello-world.git@$TARGET_SHA"
       - name: Test
         run: python tests/test_hello_world.py

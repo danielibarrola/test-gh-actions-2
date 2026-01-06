@@ -45,3 +45,4 @@ jobs:
     name: Bisect Python Tests (Head)
     with:
       json_vars: ${{ inputs.json_vars }}
+      py_hello_world_sha: ${{ inputs.cross_repo_commit_sha }}
