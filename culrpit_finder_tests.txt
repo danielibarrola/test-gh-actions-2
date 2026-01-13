@@ -1,0 +1,102 @@
+# Run for test-gh-actions-2 repo
+
+culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=604898a5cd49af23567b6d3798fdac55e26faf13 \
+  --end=92139262a50dca73af4e6bdaea08d5a65a2b3a11 \
+  --workflow=dev_workflow.yml
+
+
+# Run with url
+
+culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/20036196212 
+  
+# Run for test-gh-actions-2 repo with specific job
+
+culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=604898a5cd49af23567b6d3798fdac55e26faf13 \
+  --end=92139262a50dca73af4e6bdaea08d5a65a2b3a11 \
+  --workflow=dev_workflow.yml \
+  --job=build
+
+# Run for specific job with url
+
+culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/20036196212/job/57458302202
+
+
+# Run without cache
+
+culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=604898a5cd49af23567b6d3798fdac55e26faf13 \
+  --end=92139262a50dca73af4e6bdaea08d5a65a2b3a11 \
+  --workflow=dev_workflow.yml \
+  --no-cache
+
+# Run tests with cache but there are no cached results
+culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=880fdb2dad13663501769c9f84acc6e3b2d017d6 \
+  --end=10fae47539f3fb12e0b69fc642d120b7dd5907bd \
+  --workflow=dev_workflow.yml
+
+# Run when there are no bad commits
+
+culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=0cacaba7b86d04a9d4dd82eb9a8e8ea91076afac \
+  --end=9c5808bd1d2021e9ecfbd69242dc890f8b0c70a9 \
+  --workflow=dev_workflow.yml
+
+
+# Run where all commits are bad
+culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=6cbcb1c517ddd4609e38bc384f2bb7067ce23ecf \
+  --end=432b87263d7ae11987eb518ed79c909f259450c2 \
+  --workflow=dev_workflow.yml
+  
+# Run with env variables
+culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=80fd0c6704d325cc69ea9df52f11b84d54113094 \
+  --end=1d3942fca650909f048eaef1685cc1b95ad9da19 \
+  --workflow=dev_workflow.yml \
+  --env hello=world test=sanson
+
+  
+ # Run for jax fork
+ 
+ culprit-finder \
+  --repo=google-ml-infra/jax-fork \
+  --start=cb55e967291ff9b7d4c915b67ef172859cb6d2f6 \
+  --end=167738b47820617940ba6c70e4a9b35371c1596c \
+  --workflow=hello_world.yml
+  
+  
+ # Run test for cross repo depencencies with pinned deps
+ 
+ culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=aa81ffe9bb6bae1dcbb3bc116f031bcb7c92ee83 \
+  --end=b5a65bf0bb3c26ade3639d0d732af098bdab0431 \
+  --workflow=python_tests.yml \
+  --cross-repo-dep=danielibarrola/python-hello-world \
+  --dep-pin-file=py_hello_world.txt
+
+ 
+ # Run test for cross repo depencencies with floating deps
+ 
+ culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=6dc606fd4d05c2c00ed17bbdef51cade54ac0689 \
+  --end=e1e43bae42d1482ba37535f906bc2cfedbda8a4c \
+  --workflow=python_tests_head.yml \
+  --cross-repo-dep=danielibarrola/python-hello-world 
+ 
+ # Nitin Example
+ 
+culprit-finder --repo google-ml-infra/jax-fork -s fb11c94e0c3f16434eb75c04b02d8674ff0dd81d -e e2c30f5b5480ea20ea3a258ba5c636c19252f53d -w hello_world.yml
+
+culprit-finder https://github.com/google-ml-infra/jax-fork/actions/runs/20765154542
