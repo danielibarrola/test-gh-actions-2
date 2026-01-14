@@ -21,6 +21,7 @@ on:
 jobs:
   test-dev:
     runs-on: ubuntu-latest
+    name: Test Development Environment
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,6 +39,7 @@ jobs:
           exit 0
   build:
     runs-on: ubuntu-latest
+    name: Test Build
     steps:
       - name: Build
         run: |
