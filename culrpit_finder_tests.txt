@@ -11,7 +11,7 @@ culprit-finder \
 
 culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/20036196212 
   
-# Run for test-gh-actions-2 repo with specific job
+# Run for test-gh-actions-2 repo with specific job (use job id)
 
 culprit-finder \
   --repo=danielibarrola/test-gh-actions-2 \
@@ -20,10 +20,19 @@ culprit-finder \
   --workflow=dev_workflow.yml \
   --job=build
 
+ # Run for test-gh-actions-2 repo with specific job (use job name)
+
+ culprit-finder \
+  --repo=danielibarrola/test-gh-actions-2 \
+  --start=8046f292d0c3cc49a28150cef2972107db50cd16 \
+  --end=c7957bfc2403a2dcc47a74c90036d95e75c2d0c4 \
+  --workflow=dev_workflow.yml \
+  --job="Test Development Environment"
+
 # Run for specific job with url
 
 culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/20036196212/job/57458302202
-
+culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/21009845329/job/60401780141
 
 # Run without cache
 

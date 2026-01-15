@@ -46,4 +46,4 @@ jobs:
           echo "Current SHA: ${{ github.sha }}"
           echo "Build Job"
           echo "Success!"
-          exit 0
+          exit 1
