@@ -8,11 +8,6 @@ on:
   workflow_dispatch: # allows triggering the workflow run manually
   push:
     branches: ["develop"]
-    paths:
-      - ".github/workflows/continuous_tests.yml"
-      - ".github/workflows/build_artifacts.yml"
-      - ".github/workflows/pytest_cpu.yml"
-      - ".github/workflows/pytest_cuda.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
