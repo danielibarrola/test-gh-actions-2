@@ -36,7 +36,7 @@ jobs:
           echo "Listing all environment variables:"
           env
           echo "Success!"
-          exit 0
+          exit 1
   build:
     runs-on: ubuntu-latest
     name: Test Build
