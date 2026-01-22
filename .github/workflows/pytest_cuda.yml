@@ -24,7 +24,7 @@ jobs:
       run:
         # Set the shell to bash as GitHub actions run with /bin/sh by default
         shell: bash
-    runs-on: ${{ inputs.runner }}
+    runs-on: ubuntu-latest
     name: "${{ (contains(inputs.runner, 'h100') && 'h100') ||
         (contains(inputs.runner, 'b200') && 'b200') ||
         (contains(inputs.runner, 'l4') && 'l4') }}, CUDA ${{ inputs.cuda-version }}, py ${{ inputs.python }}"
