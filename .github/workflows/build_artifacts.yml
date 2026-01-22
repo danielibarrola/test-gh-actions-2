@@ -1,0 +1,84 @@
+name: CI - Build Artifacts
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: "Which runner should the workflow run on?"
+        type: choice
+        default: "linux-x86-n4-16"
+        options:
+        - "linux-x86-n4-16"
+        - "linux-arm64-t2a-48"
+        - "linux-arm64-c4a-16"
+        - "windows-x86-n2-16"
+      artifact:
+        description: "Which artifact to build?"
+        type: choice
+        default: "test"
+        options:
+        - "test"
+        - "test-artifacts"
+      python:
+        description: "Which python version should the artifact be built for?"
+        type: choice
+        default: "3.12"
+        options:
+        - "3.11"
+        - "3.12"
+        - "3.13"
+        - "3.13-ft"
+        - "3.14"
+        - "3.14-ft"
+      cuda-version:
+        description: "Which cuda version should the artifact be built for?"
+        type: choice
+        default: "12"
+        options:
+        - "12"
+        - "13"
+  workflow_call:
+    inputs:
+      runner:
+        description: "Which runner should the workflow run on?"
+        type: string
+        default: "linux-x86-n4-16"
+      artifact:
+        description: "Which artifact to build?"
+        type: string
+        default: "test"
+      python:
+        description: "Which python version should the artifact be built for?"
+        type: string
+        default: "3.12"
+      cuda-version:
+        description: "Which cuda version should the artifact be built for?"
+        type: string
+        default: "12"
+
+permissions: {}
+jobs:
+  build-artifacts:
+    defaults:
+      run:
+        # Explicitly set the shell to bash to override Windows's default (cmd)
+        shell: bash
+
+    runs-on: ubuntu-latest
+    name: "${{ inputs.artifact }},
+            ${{ (contains(inputs.runner, 'linux-x86') && 'linux x86') ||
+            (contains(inputs.runner, 'linux-arm64') && 'linux arm64') ||
+            (contains(inputs.runner, 'windows-x86') && 'windows x86') }}, py ${{ inputs.python }}${{ (contains(inputs.artifact, 'cuda') && format(', cuda {0}', inputs.cuda-version)) || '' }}"
+
+
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          persist-credentials: false
+      - name: Configure Build Environment
+        shell: bash
+        run: |
+          echo "Configuring Build Environment"
+      - name: Build ${{ inputs.artifact }}
+        timeout-minutes: 60
+        run: echo  "Building artifacts ${{ inputs.artifact }}"

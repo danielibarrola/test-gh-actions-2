@@ -34,6 +34,7 @@ culprit-finder \
 culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/20036196212/job/57458302202
 culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/21009845329/job/60401780141
 culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/21038176172/job/60492030851
+culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/21252924537/job/61159207103
 
 culprit-finder https://github.com/google-ml-infra/jax-fork/actions/runs/21097883816/job/60678154032 # green commit https://github.com/google-ml-infra/jax-fork/actions/runs/21087849486/job/60654733045
 # Run without cache
@@ -111,5 +112,3 @@ culprit-finder \
 culprit-finder --repo google-ml-infra/jax-fork -s fb11c94e0c3f16434eb75c04b02d8674ff0dd81d -e e2c30f5b5480ea20ea3a258ba5c636c19252f53d -w hello_world.yml
 
 culprit-finder https://github.com/google-ml-infra/jax-fork/actions/runs/20765154542
-
-0b624a8a81d6466fd37dc46a1a16bbe16d96f55c

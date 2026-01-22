@@ -1,0 +1,39 @@
+name: CI - Pytest CPU
+on:
+  workflow_call:
+    inputs:
+      runner:
+        description: "Which runner should the workflow run on?"
+        type: string
+        default: "linux-x86-n4-16"
+      python:
+        description: "Which python version should the artifact be built for?"
+        type: string
+        default: "3.12"
+
+permissions: {}
+
+
+jobs:
+  run-tests:
+    defaults:
+      run:
+        # Explicitly set the shell to bash to override Windows's default (cmd)
+        shell: bash
+    runs-on: ubuntu-latest
+
+    name: "${{ (contains(inputs.runner, 'linux-x86') && 'linux x86') ||
+        (contains(inputs.runner, 'linux-arm64') && 'linux arm64') ||
+        (contains(inputs.runner, 'windows-x86') && 'windows x86') }}, py ${{ inputs.python }}"
+
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          persist-credentials: false
+      - name: Download CPU wheels
+        run: echo "Downloading CPU wheels"
+      - name: Install Python dependencies
+        run: echo "Installing Python dependencies"
+      - name: Run Pytest CPU tests
+        timeout-minutes: 60
+        run: echo "Running Pytest CPU tests"
