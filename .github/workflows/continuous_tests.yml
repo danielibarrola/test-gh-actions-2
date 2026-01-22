@@ -6,6 +6,7 @@ on:
   schedule:
     - cron: "0 0 * * *" # Run once per day
   workflow_dispatch: # allows triggering the workflow run manually
+  workflow_call:
   push:
     branches: ["develop"]
 
