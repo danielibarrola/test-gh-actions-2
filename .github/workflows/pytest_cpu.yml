@@ -35,5 +35,6 @@ jobs:
       - name: Install Python dependencies
         run: echo "Installing Python dependencies"
       - name: Run Pytest CPU tests
-        timeout-minutes: 60
-        run: echo "Running Pytest CPU tests"
+        run:  | 
+          echo "Running Pytest CPU tests"
+          exit 1
