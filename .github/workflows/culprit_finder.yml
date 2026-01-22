@@ -46,3 +46,8 @@ jobs:
     with:
       json_vars: ${{ inputs.json_vars }}
       py_hello_world_sha: ${{ inputs.cross_repo_commit_sha }}
+
+  bisect-continuous-tests:
+    if: ${{ inputs.workflow-to-debug == 'continuous_tests.yml' }}
+    uses: ./.github/workflows/continuous_tests.yml
+    name: Bisect Continuous Tests

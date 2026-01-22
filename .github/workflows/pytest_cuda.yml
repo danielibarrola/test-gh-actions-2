@@ -40,4 +40,6 @@ jobs:
           echo "Installing Python dependencies..."
       - name: Run Pytest CUDA tests
         timeout-minutes: 120
-        run: echo "Running Pytest CUDA tests..."
+        run: |
+          echo "Running Pytest CUDA tests..."
+          exit 0
