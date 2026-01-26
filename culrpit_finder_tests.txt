@@ -85,6 +85,13 @@ culprit-finder \
   --start=cb55e967291ff9b7d4c915b67ef172859cb6d2f6 \
   --end=167738b47820617940ba6c70e4a9b35371c1596c \
   --workflow=hello_world.yml
+
+
+  culprit-finder \
+  --repo=google-ml-infra/jax-fork \
+  --start=9918cf40d521c3d1c4f7a63ef1bda690ab12325a \
+  --end=3c7b9d18027e8aba2d725995f6db45e0ce960ccd \
+  --workflow=wheel_tests_continuous.yml
   
   
  # Run test for cross repo depencencies with pinned deps
