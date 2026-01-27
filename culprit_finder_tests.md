@@ -146,9 +146,17 @@ culprit-finder \
   --cross-repo-dep=danielibarrola/python-hello-world \
   --dep-pin-file=py_hello_world.txt
 ```
-
+Using url
 ```shell
 culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/20606448592 \
+  --cross-repo-dep=danielibarrola/python-hello-world \
+  --dep-pin-file=py_hello_world.txt
+```
+
+### Test for specific job
+
+```shell
+culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/21408241075/job/61637980186 \
   --cross-repo-dep=danielibarrola/python-hello-world \
   --dep-pin-file=py_hello_world.txt
 ```

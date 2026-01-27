@@ -50,3 +50,14 @@ jobs:
           pip install "git+https://github.com/danielibarrola/python-hello-world.git@$TARGET_SHA"
       - name: Test
         run: python tests/test_hello_world.py
+
+  build:
+    runs-on: ubuntu-latest
+    name: Test Build
+    steps:
+      - name: Build
+        run: |
+          echo "Current SHA: ${{ github.sha }}"
+          echo "Build Job"
+          echo "Fail!"
+          exit 1
