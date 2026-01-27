@@ -147,6 +147,13 @@ culprit-finder \
   --dep-pin-file=py_hello_world.txt
 ```
 
+```shell
+culprit-finder https://github.com/danielibarrola/test-gh-actions-2/actions/runs/20606448592 \
+  --cross-repo-dep=danielibarrola/python-hello-world \
+  --dep-pin-file=py_hello_world.txt
+```
+
+
 ### Run test for cross repo dependencies with floating deps
 Finding the culprit when using floating dependencies from another repository.
 ```shell
